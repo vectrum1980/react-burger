@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, Link, useMatch } from 'react-router-dom'
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './app-header.module.css'
-import { ROUTES } from "../../App";
+import { ROUTES } from "../app/app";
 import cn from 'classnames'
 
 
@@ -24,7 +24,7 @@ const AppHeader: React.FunctionComponent = () => {
                     <span className={cn(styles["header__link-text"], "text text_type_main-default")}>Лента Заказов</span>
                 </NavLink>             
             </div>
-            <Link to={ROUTES.HOME} className={styles.container__logo}>
+            <Link to={ROUTES.HOME} >
                 <Logo />
             </Link>
             <div className={styles.container__nav}>
