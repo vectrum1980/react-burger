@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  box-sizing: border-box;
+}
+
+.burger-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-grow: 1;
+  margin-top: 60px;
+  border-radius: 30px;
+}
+
+.burger-container_active {
+  background-color: #1c1c21;
+}
+
+.burger-container_candrop {
+  border: 10px solid #1c1c21;
+}
+
+.list {
+  width: 100%;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 350px;
+  flex-grow: 1;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 300px;
+}
+::-webkit-scrollbar-track {
+  background: #2f2f37;
+  height: 300px;
+}
+::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 2px solid #2f2f37;
+  border-radius: 6px;
+}
+
+.item_without-icon {
+  justify-content: flex-end;
+}
+
+.order {
+  display: flex;
+  align-items: center;
+}

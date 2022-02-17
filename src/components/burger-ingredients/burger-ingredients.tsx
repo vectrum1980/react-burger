@@ -1,13 +1,314 @@
-import React, {FC, useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
+import Ingredients from '../ingredients/ingredients';
+import cn from 'classnames';
+import styles from './burger-ingredients.module.css';
+import { Ingredient } from '../../model/ingredient'
 
-const BurgerIngredients: FC<{}> = () => {
+const BurgerIngredients: React.FunctionComponent = () => {
 
-    const [selectedTab, setSelectedTab] = useState<string>("bum")    
+    const allIngredients = [
+        {
+            "_id": "60666c42cc7b410027a1a9b1",
+            "name": "Краторная булка N-200i",
+            "type": "bun",
+            "proteins": 80,
+            "fat": 24,
+            "carbohydrates": 53,
+            "calories": 420,
+            "price": 1255,
+            "image": "https://code.s3.yandex.net/react/code/bun-02.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9b5",
+            "name": "Говяжий метеорит (отбивная)",
+            "type": "main",
+            "proteins": 800,
+            "fat": 800,
+            "carbohydrates": 300,
+            "calories": 2674,
+            "price": 3000,
+            "image": "https://code.s3.yandex.net/react/code/meat-04.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/meat-04-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9b6",
+            "name": "Биокотлета из марсианской Магнолии",
+            "type": "main",
+            "proteins": 420,
+            "fat": 142,
+            "carbohydrates": 242,
+            "calories": 4242,
+            "price": 424,
+            "image": "https://code.s3.yandex.net/react/code/meat-01.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9b7",
+            "name": "Соус Spicy-X",
+            "type": "sauce",
+            "proteins": 30,
+            "fat": 20,
+            "carbohydrates": 40,
+            "calories": 30,
+            "price": 90,
+            "image": "https://code.s3.yandex.net/react/code/sauce-02.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/sauce-02-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9b4",
+            "name": "Мясо бессмертных моллюсков Protostomia",
+            "type": "main",
+            "proteins": 433,
+            "fat": 244,
+            "carbohydrates": 33,
+            "calories": 420,
+            "price": 1337,
+            "image": "https://code.s3.yandex.net/react/code/meat-02.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/meat-02-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9b9",
+            "name": "Соус традиционный галактический",
+            "type": "sauce",
+            "proteins": 42,
+            "fat": 24,
+            "carbohydrates": 42,
+            "calories": 99,
+            "price": 15,
+            "image": "https://code.s3.yandex.net/react/code/sauce-03.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/sauce-03-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9b8",
+            "name": "Соус фирменный Space Sauce",
+            "type": "sauce",
+            "proteins": 50,
+            "fat": 22,
+            "carbohydrates": 11,
+            "calories": 14,
+            "price": 80,
+            "image": "https://code.s3.yandex.net/react/code/sauce-04.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/sauce-04-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9bc",
+            "name": "Плоды Фалленианского дерева",
+            "type": "main",
+            "proteins": 20,
+            "fat": 5,
+            "carbohydrates": 55,
+            "calories": 77,
+            "price": 874,
+            "image": "https://code.s3.yandex.net/react/code/sp_1.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/sp_1-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/sp_1-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9bb",
+            "name": "Хрустящие минеральные кольца",
+            "type": "main",
+            "proteins": 808,
+            "fat": 689,
+            "carbohydrates": 609,
+            "calories": 986,
+            "price": 300,
+            "image": "https://code.s3.yandex.net/react/code/mineral_rings.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9ba",
+            "name": "Соус с шипами Антарианского плоскоходца",
+            "type": "sauce",
+            "proteins": 101,
+            "fat": 99,
+            "carbohydrates": 100,
+            "calories": 100,
+            "price": 88,
+            "image": "https://code.s3.yandex.net/react/code/sauce-01.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/sauce-01-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/sauce-01-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9bd",
+            "name": "Кристаллы марсианских альфа-сахаридов",
+            "type": "main",
+            "proteins": 234,
+            "fat": 432,
+            "carbohydrates": 111,
+            "calories": 189,
+            "price": 762,
+            "image": "https://code.s3.yandex.net/react/code/core.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/core-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/core-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9be",
+            "name": "Мини-салат Экзо-Плантаго",
+            "type": "main",
+            "proteins": 1,
+            "fat": 2,
+            "carbohydrates": 3,
+            "calories": 6,
+            "price": 4400,
+            "image": "https://code.s3.yandex.net/react/code/salad.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/salad-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/salad-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9b3",
+            "name": "Филе Люминесцентного тетраодонтимформа",
+            "type": "main",
+            "proteins": 44,
+            "fat": 26,
+            "carbohydrates": 85,
+            "calories": 643,
+            "price": 988,
+            "image": "https://code.s3.yandex.net/react/code/meat-03.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/meat-03-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9bf",
+            "name": "Сыр с астероидной плесенью",
+            "type": "main",
+            "proteins": 84,
+            "fat": 48,
+            "carbohydrates": 420,
+            "calories": 3377,
+            "price": 4142,
+            "image": "https://code.s3.yandex.net/react/code/cheese.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/cheese-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/cheese-large.png",
+            "__v": 0
+        },
+        {
+            "_id": "60666c42cc7b410027a1a9b2",
+            "name": "Флюоресцентная булка R2-D3",
+            "type": "bun",
+            "proteins": 44,
+            "fat": 26,
+            "carbohydrates": 85,
+            "calories": 643,
+            "price": 988,
+            "image": "https://code.s3.yandex.net/react/code/bun-01.png",
+            "image_mobile": "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
+            "image_large": "https://code.s3.yandex.net/react/code/bun-01-large.png",
+            "__v": 0
+        }
+    ]
+
+
+    const filterArray = (arr: Array<Ingredient>) => {
+        return arr.reduce(
+            (acc: { [name: string]: Array<Ingredient> }, curr) => ({
+                ...acc,
+                [curr.type]: [...(acc[curr.type] || []), curr],
+            }),
+            {}
+        );
+    };
+
+
+
+    const [selectedTab, setSelectedTab] = useState<string>('bread')
+    const { bun, main, sauce } = filterArray(allIngredients);
+    const rootRef = useRef<HTMLElement>(null);
+    const bunRef = useRef<HTMLHeadingElement>(null);
+    const sauceRef = useRef<HTMLHeadingElement>(null);
+    const mainRef = useRef<HTMLHeadingElement>(null);
+
+    useEffect(() => {
+        debugger
+        document.querySelector(`#${selectedTab}`)?.scrollIntoView();
+    }, [selectedTab]);
+
+    const handleScroll = () => {
+        debugger;
+        if (rootRef && bunRef && sauceRef && mainRef && rootRef.current && bunRef.current && sauceRef.current && mainRef.current) {
+            const bunDistance = Math.abs(
+                rootRef.current.getBoundingClientRect().top -
+                bunRef.current.getBoundingClientRect().top
+            );
+            const sauceDistance = Math.abs(
+                rootRef?.current.getBoundingClientRect().top -
+                sauceRef?.current.getBoundingClientRect().top
+            );
+            const mainDistance = Math.abs(
+                rootRef?.current.getBoundingClientRect().top -
+                mainRef?.current.getBoundingClientRect().top
+            );
+            const minDistance = Math.min(bunDistance, sauceDistance, mainDistance);
+            const currentHeader =
+                minDistance === bunDistance
+                    ? 'bread'
+                    : minDistance === sauceDistance
+                        ? 'sauces'
+                        : 'fillings';
+            setSelectedTab((prevState) => currentHeader === prevState ? prevState : currentHeader);
+        }
+    };
 
     return <>
-        <Tab value="sauce" active={selectedTab === 'bum'} onClick={setSelectedTab}></Tab>
+        <section>
+            <h1>Соберите Бургер</h1>
+            <div className={cn('text', 'text_type_main-default', 'mb-10', styles.menu)}>
+                <Tab value="bread" active={selectedTab === 'bread'} onClick={setSelectedTab}>
+                    Булки
+                </Tab>
+                <Tab value="sauces" active={selectedTab === 'sauces'} onClick={setSelectedTab}>
+                    Соусы
+                </Tab>
+                <Tab value="fillings" active={selectedTab === 'fillings'} onClick={setSelectedTab}>
+                    Начинки
+                </Tab>
+            </div>
+            <section
+                className={cn(styles.container)}
+                ref={rootRef}
+                onScroll={handleScroll}>
+                <Ingredients
+                    title='Булки'
+                    ingredients={bun}
+                    id='bread'
+                    ref={bunRef}
+                />
+                <Ingredients
+                    title='Соусы'
+                    ingredients={sauce}
+                    id='sauces'
+                    ref={sauceRef}
+                />
+                <Ingredients
+                    title='Начинки'
+                    ingredients={main}
+                    id='fillings'
+                    ref={mainRef}
+                />
+            </section>
+        </section>
     </>
 };
-
 export default BurgerIngredients;
