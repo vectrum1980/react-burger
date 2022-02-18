@@ -1,0 +1,38 @@
+.link {
+  text-decoration: none;
+  color: #8585ad;
+}
+
+.item {
+  list-style-type: none;
+  box-shadow: inset 0px -2px 0px #2f2f37;
+}
+
+.item_active {
+  color: #f2f2f3;
+  box-shadow: inset 0px -2px 0px #4c4cff;
+}
+
+.menu {
+  display: flex;
+}
+
+.container {
+  max-height: 560px;
+  flex: 1;
+  overflow-y: scroll; 
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 300px;
+}
+::-webkit-scrollbar-track {
+  background: #2f2f37;
+  height: 300px;
+}
+::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 2px solid #2f2f37;
+  border-radius: 6px;
+}

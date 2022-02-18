@@ -1,0 +1,39 @@
+.header {
+    background-color: #30303a;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.container {
+    display: flex;
+}
+
+.container__nav {
+    display: flex;
+    flex-basis: 320px;
+    ;
+}
+
+.header__link-text {
+    margin-left: 10px !important;
+    position: relative;
+    top: -5px;
+}
+
+.header__link {
+    color: #8c8ca3;
+    text-decoration: none;
+}
+
+.header__link-active {
+    color: #ffffff;
+    text-decoration: none;
+}
