@@ -1,30 +1,43 @@
-import React from 'react'
-import styles from './app.module.css';
-import AppHeader from '../app-header/app-header';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import BurgerUnion from '../burger-union/burger-union';
-import OrdersFeed from '../orders-feed/orders-feed';
-import UserProfile from '../user-profile/user-profile';
+import React, {useEffect } from 'react'
+import { Switch, BrowserRouter, Route, Redirect, useLocation, useHistory } from 'react-router-dom'
+import Modal from '../modal/modal'
+import IngredientDetails from '../ingredient-details/ingredient-details'
+
+import AppHeader from '../app-header/app-header'
+import BurgerUnion from '../burger-union/burger-union'
 
 export const ROUTES = {
   HOME: '/',
   ORDERS: '/orders',
-  PROFILE: '/profile'
+  PROFILE: '/profile',
+  INGREDIENTS: '/ingredients',
 }
 
-const App = () => {
+
+export const App = () => {
+  
+  const location = useLocation<any>();
+  const background = location.state && location.state.background;
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <AppHeader />
-        <Routes>
-          <Route path={ROUTES.HOME} element={<BurgerUnion />} />
-          <Route path={ROUTES.ORDERS} element={<OrdersFeed />} />
-          <Route path={ROUTES.PROFILE} element={<UserProfile />} />
-        </Routes>
-      </BrowserRouter>
+    <div>
+      <AppHeader />
+      <Switch location={background || location}>
+        <Route path={'/'} exact>
+          <BurgerUnion />
+        </Route>
+        <Route path='/ingredients/:id'>
+          <Modal title='Детали ингредиента'><IngredientDetails /></Modal>
+        </Route>
+      </Switch>
+
+      {background &&
+        <>
+          <Route path='/ingredients/:id' children={<Modal title='Детали ингредиента'><IngredientDetails /></Modal>} />
+        </>
+      }
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
