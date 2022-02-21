@@ -1,4 +1,4 @@
-export interface Ingredient  {
+export interface Ingredient {
     _id: string;
     name: string;
     type: string;
@@ -10,11 +10,17 @@ export interface Ingredient  {
     image: string;
     image_mobile: string;
     image_large: string;
-    __v?: number;
+    __v?: number | undefined | null;
 }
 
-export interface IngredientRef{
-    title: string, 
-    ingredients: Array<Ingredient>, 
+export interface IngredientRef {
+    title: string,
+    ingredients: Array<Ingredient>,
     id: string
 }
+
+export interface IngredientsGroup { 
+    type: string,
+    ingredients: Array<Ingredient>
+}
+

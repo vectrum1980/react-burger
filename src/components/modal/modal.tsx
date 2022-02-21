@@ -1,10 +1,10 @@
 import ReactDOM from 'react-dom'
 import React, { useEffect } from 'react'
 import styles from './modal.module.css';
-import ModalOverlay from '../modal-overlay/modal-overlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import cn from 'classnames'
 import { useHistory } from "react-router-dom";
+import ModalOverlay from '../modal-overlay/modal-overlay';
 
 
 export type Props = {
@@ -18,11 +18,11 @@ const Modal: React.FunctionComponent<React.PropsWithChildren<Props>> = ({ title,
 
   const history = useHistory();
 
-  const close = (evn: KeyboardEvent) => {
-    if (evn.code === 'Escape') buttonClose();
+  const close = (ev: KeyboardEvent) => {
+    if (ev.code === 'Escape') handleClose();
   };
 
-  const buttonClose = () => {
+  const handleClose = () => {
     history.goBack();
   }
 
@@ -37,7 +37,7 @@ const Modal: React.FunctionComponent<React.PropsWithChildren<Props>> = ({ title,
       <div className={cn(styles.container, 'p-10')}>
         <div className={styles.header}>
           {title && <h3 className={cn('text text_type_main-medium', styles.title)}>{title}</h3>}
-          <div className={cn(styles["close-icon"])} onClick={buttonClose}>
+          <div className={cn(styles["close-icon"])} onClick={handleClose}>
             <CloseIcon type={'primary'} />
           </div>
         </div>

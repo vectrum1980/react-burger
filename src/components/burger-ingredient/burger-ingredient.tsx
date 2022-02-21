@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import cn from 'classnames';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PriceItem from '../price-item/price-item';

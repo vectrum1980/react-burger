@@ -3,19 +3,26 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import Ingredients from '../ingredients/ingredients';
 import cn from 'classnames';
 import styles from './burger-ingredients.module.css';
-import { Data } from '../../model/data'
 import { groupBy } from "lodash";
+import { Ingredient } from '../../model/ingredient';
 
-const BurgerIngredients: React.FunctionComponent = () => {
+const BurgerIngredients: React.FunctionComponent<{ ingredients: Ingredient[] }> = ({ ingredients }) => {
+    
+    const [selectedTab, setSelectedTab] = useState<string>('bun')
+    const [groupedIngredients, setGroupedIngredients] = useState<any>(null);
 
-    const groupedIngredients = groupBy(Data, x => x.type);   
-    const [selectedTab, setSelectedTab] = useState<string>('bun')   
-   
+    useEffect(() => {
+        if (ingredients && ingredients.length) {
+            const grouped = groupBy(ingredients, x => x.type)
+            setGroupedIngredients(grouped);
+        }
+    }, [ingredients]);
+
     const rootRef = useRef<HTMLElement>(null);
     const bunRef = useRef<HTMLHeadingElement>(null);
     const sauceRef = useRef<HTMLHeadingElement>(null);
     const mainRef = useRef<HTMLHeadingElement>(null);
-   
+
     const handleScroll = () => {
         if (rootRef.current && bunRef.current && sauceRef.current && mainRef.current) {
             const bunDistance = Math.abs(rootRef?.current?.getBoundingClientRect()?.top - bunRef?.current?.getBoundingClientRect()?.top)
@@ -24,14 +31,14 @@ const BurgerIngredients: React.FunctionComponent = () => {
             const min = Math.min(bunDistance, sauceDistance, mainDistance)
             const activeTab = min === bunDistance ? 'bun' : min === sauceDistance ? 'sauces' : 'fillings'
             setSelectedTab(activeTab)
-          }
+        }
     };
 
     useEffect(() => {
         if (selectedTab === 'bun') bunRef?.current?.scrollIntoView()
         if (selectedTab === 'sauces') sauceRef?.current?.scrollIntoView()
         if (selectedTab === 'fillings') mainRef?.current?.scrollIntoView()
-      }, [selectedTab])
+    }, [selectedTab])
 
     return <>
         <section>
@@ -47,7 +54,7 @@ const BurgerIngredients: React.FunctionComponent = () => {
                     Начинки
                 </Tab>
             </div>
-            <section
+            {groupedIngredients && <section
                 className={cn(styles.container)}
                 ref={rootRef}
                 onScroll={handleScroll}>
@@ -69,7 +76,7 @@ const BurgerIngredients: React.FunctionComponent = () => {
                     id='fillings'
                     ref={mainRef}
                 />
-            </section>
+            </section>}
         </section>
     </>
 };
