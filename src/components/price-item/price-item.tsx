@@ -5,13 +5,13 @@ import cn from 'classnames';
 
 export type TProps = {
 	price: number;
-	classMarg?: string;
+	classes?: string;
 }
 
 
-const PriceItem: FC<TProps> = ({ price, classMarg }) => {
+const PriceItem: FC<TProps> = ({ price, classes }) => {
   return (
-    <span className={cn(styles['element-price'], 'text', [classMarg])}>
+    <span className={cn(styles['element-price'], 'text', [classes])}>
       {price}
       <CurrencyIcon type='primary' />
     </span>

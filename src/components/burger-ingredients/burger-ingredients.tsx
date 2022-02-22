@@ -42,7 +42,7 @@ const BurgerIngredients: React.FunctionComponent<{ ingredients: Ingredient[] }> 
 
     return <>
         <section>
-            <h1>Соберите Бургер</h1>
+            <h1  className={cn('text', 'text_type_main-large')}>Соберите Бургер</h1>
             <div className={cn('text', 'text_type_main-default', 'mb-10', styles.menu)}>
                 <Tab value="bun" active={selectedTab === 'bun'} onClick={setSelectedTab}>
                     Булки

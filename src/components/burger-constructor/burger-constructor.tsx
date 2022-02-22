@@ -77,7 +77,7 @@ const BurgerConstructor: React.FunctionComponent = () => {
 
       <div className={cn(styles.order, 'mt-10')}>
         {ingredients.length || bun ? (
-          <PriceItem price={totalPrice} classMarg='mr-10' />
+          <PriceItem price={totalPrice} classes='text_type_main-large mr-10' />
         ) : null}
         {bun && (
           <Button type='primary' size='large' onClick={handleClick}>

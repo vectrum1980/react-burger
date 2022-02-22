@@ -4,7 +4,7 @@ export interface RequestOptions {
 }
 
 export const getRequest = <T extends any = null>(options: RequestOptions): Promise<T> => {
-    return performRequest("GET", options);
+    return performRequest<T>("GET", options);
 };
 
 const performRequest = async <T extends any = null>(method: string, options: RequestOptions): Promise<T> => {

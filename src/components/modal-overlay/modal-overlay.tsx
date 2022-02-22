@@ -1,7 +1,7 @@
 import styles from './modal-overlay.module.css';
 
-const ModalOverlay = () => {
-  return <div className={styles.overlay} />
+const ModalOverlay: React.FunctionComponent<{ onClick: () => void; }> = ({ onClick }) => {
+  return <div className={styles.overlay} onClick={onClick} />
 }
 
 export default ModalOverlay;

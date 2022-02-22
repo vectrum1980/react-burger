@@ -8,7 +8,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 
 
 export type Props = {
-  title?: string | undefined;
+  title?: string;
 }
 
 const modalRoot = document.getElementById('modal-window') as HTMLElement
@@ -43,7 +43,7 @@ const Modal: React.FunctionComponent<React.PropsWithChildren<Props>> = ({ title,
         </div>
         <div className={styles.body}>{children}</div>
       </div>
-      <ModalOverlay />
+      <ModalOverlay onClick={handleClose} />
     </>,
     modalRoot,
   )
