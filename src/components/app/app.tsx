@@ -4,8 +4,6 @@ import Modal from '../modal/modal'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 import AppHeader from '../app-header/app-header'
 import BurgerUnion from '../burger-union/burger-union'
-import { api } from '../../api/api'
-import { Ingredient } from '../../model/ingredient';
 import OrderDetails from '../order-details/order-details'
 import { Location } from '../../model/location'
 import { BurgerConstructorContext } from '../../contexts/burger-constructor-context';
@@ -19,13 +17,12 @@ export const ROUTES = {
   ORDER: '/order',
 }
 
-
 export const App = () => {
 
   const location = useLocation<Location>();
-  const background = location.state && location.state.background;  
+  const background = location.state && location.state.background;
   const { ingredients } = useContext(BurgerConstructorContext) as IBurgerConstructorContext;
-  
+
 
   return (
     <div>
@@ -44,8 +41,12 @@ export const App = () => {
 
       {background &&
         <>
-          <Route path='/ingredients/:id' children={<Modal title='Детали ингредиента'><IngredientDetails ingredients={ingredients} /></Modal>} />
-          <Route path={`${ROUTES.ORDER}`} children={<Modal><OrderDetails /></Modal>} />
+          <Route path='/ingredients/:id'>
+            <Modal title='Детали ингредиента'><IngredientDetails ingredients={ingredients} /></Modal>
+          </Route>
+          <Route path={`${ROUTES.ORDER}`}>
+            <Modal><OrderDetails /></Modal>
+          </Route>
         </>
       }
     </div>

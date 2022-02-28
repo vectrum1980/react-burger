@@ -7,12 +7,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 import BurgerConstructorProvider from './contexts/burger-constructor-context';
 
 ReactDOM.render(
-  <BurgerConstructorProvider>
-    <Router>
+  <Router>
+    <BurgerConstructorProvider>
       <App />
-    </Router>
-  </BurgerConstructorProvider>,
-  document.getElementById('root')
+    </BurgerConstructorProvider>
+  </Router>, document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

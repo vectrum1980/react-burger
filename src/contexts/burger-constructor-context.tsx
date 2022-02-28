@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Ingredient } from '../model/ingredient';
 import { IBurgerConstructorContext } from '../model/burger-constructor-context'
 import { api } from '../api/api'
@@ -12,35 +12,15 @@ const BurgerConstructorProvider: React.FC<React.ReactNode> = ({ children }) => {
 
     useEffect(() => {
         api.ingredients.getIngredients().then(data => {
-            setIngredients(data);
-        })
+            setIngredients(data.data);
+        }).catch((err) => console.log(`${err}`));
     }, []);
 
-    const bun = useMemo(
-        () =>
-            ingredients.find((item) => {
-                return item.type === 'bun';
-            }),
-        [ingredients]
-    );
-
-    const otherIngredients = useMemo(
-        () => ingredients.filter((item) => item.type !== 'bun'),
-        [ingredients]
-    );
-
     const getOrderNumber = () => {
-
-        const ids = otherIngredients
-            .map((item) => {
-                return item._id;
-            })
-            .concat(bun ? bun._id : '');
-
+        const ids = ingredients.map((item) => { return item._id; });
         api.orders.getOrderNumber(ids).then(({ order }) => {
             setOrderNumber(order.number);
-        })
-            .catch((err) => console.log(`${err}`));
+        }).catch((err) => console.log(`${err}`));
     }
 
     return (
