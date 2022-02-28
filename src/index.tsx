@@ -4,11 +4,14 @@ import './index.css';
 import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from "react-router-dom";
+import BurgerConstructorProvider from './contexts/burger-constructor-context';
 
-ReactDOM.render(  
+ReactDOM.render(
+  <BurgerConstructorProvider>
     <Router>
       <App />
-    </Router>,
+    </Router>
+  </BurgerConstructorProvider>,
   document.getElementById('root')
 );
 

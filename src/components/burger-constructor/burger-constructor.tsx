@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import cn from 'classnames';
 import { ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import PriceItem from '../price-item/price-item';
@@ -7,6 +7,8 @@ import BurgerItem from '../burger-item/burger-item';
 import { Ingredient } from '../../model/ingredient'
 import { Bun, Ingredients } from '../../model/order'
 import { useLocation, useHistory } from 'react-router-dom';
+import { BurgerConstructorContext } from '../../contexts/burger-constructor-context';
+import { IBurgerConstructorContext } from '../../model/burger-constructor-context'
 
 
 const BurgerConstructor: React.FunctionComponent = () => {
@@ -16,6 +18,8 @@ const BurgerConstructor: React.FunctionComponent = () => {
   const history = useHistory();
   const location = useLocation();
   const [totalPrice, setTotalPrice] = useState<number>(0)
+
+  const { getOrderNumber } = useContext(BurgerConstructorContext) as IBurgerConstructorContext;
 
   useEffect(() => {
     setBun(Bun)
@@ -32,6 +36,7 @@ const BurgerConstructor: React.FunctionComponent = () => {
 
 
   const handleClick = () => {
+    getOrderNumber();
     history.push({
       pathname: '/order',
       state: {
