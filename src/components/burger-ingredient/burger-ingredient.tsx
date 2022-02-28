@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import cn from 'classnames';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PriceItem from '../price-item/price-item';
@@ -14,7 +14,7 @@ const BurgerIngredient: React.FunctionComponent<Ingredient> = (item) => {
                 alt={item.name}
             />
             <Counter count={1} size='small' />
-            <PriceItem price={item.price} classMarg='mr-1' />
+            <PriceItem price={item.price} classes='text_type_main-medium mr-1' />
             <p className={cn('text text_type_main-default', styles.container__description)}>
                 {item.name}
             </p>

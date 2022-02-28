@@ -7,6 +7,7 @@ import { Ingredient, IngredientRef } from '../../model/ingredient'
 
 const Ingredients = React.forwardRef<HTMLHeadingElement, IngredientRef>(
     ({ title, ingredients, id }, ref) => {
+
         const location = useLocation();
 
         return (
@@ -21,7 +22,10 @@ const Ingredients = React.forwardRef<HTMLHeadingElement, IngredientRef>(
                 <ul className={cn(styles.list, 'ml-4')}>
                     {ingredients.map((el: Ingredient) => (
                         <li className={styles['list-item']} key={el._id}>
-                            <Link to={{ pathname: `` }}
+                            <Link to={{
+                                pathname: `/ingredients/${el._id}`,  
+                                state: { background: location }
+                            }}
                                 className={styles.link}>
                                 <BurgerIngredient {...el} />
                             </Link>
