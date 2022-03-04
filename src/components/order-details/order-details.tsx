@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react'
 import cn from 'classnames';
 import styles from './order-details.module.css';
 import checkMark from '../../images/check-mark.png';
+import { BurgerConstructorContext } from '../../contexts/burger-constructor-context';
+import { IBurgerConstructorContext } from '../../model/burger-constructor-context'
+
 
 
 const OrderDetails: React.FunctionComponent = () => {
 
-    const number = "034536";
+    const { orderNumber } = useContext(BurgerConstructorContext) as IBurgerConstructorContext;
 
     return (
         <div className={cn(styles.order, 'p-15')}>
             <h1 className={cn(styles.title, 'text', 'text_type_digits-large', 'mb-8')}>
-                {number}
+                {orderNumber}
             </h1>
             <p className={cn('text', 'text_type_main-medium')}>
                 идентификатор заказа

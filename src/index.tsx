@@ -4,12 +4,14 @@ import './index.css';
 import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from "react-router-dom";
+import BurgerConstructorProvider from './contexts/burger-constructor-context';
 
-ReactDOM.render(  
-    <Router>
+ReactDOM.render(
+  <Router>
+    <BurgerConstructorProvider>
       <App />
-    </Router>,
-  document.getElementById('root')
+    </BurgerConstructorProvider>
+  </Router>, document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
