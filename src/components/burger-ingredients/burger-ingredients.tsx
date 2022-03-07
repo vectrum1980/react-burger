@@ -4,12 +4,16 @@ import Ingredients from '../ingredients/ingredients';
 import cn from 'classnames';
 import styles from './burger-ingredients.module.css';
 import { groupBy } from "lodash";
-import { Ingredient } from '../../model/ingredient';
+import { useSelector } from '../../hooks/useSelector';
 
-const BurgerIngredients: React.FunctionComponent<{ ingredients: Ingredient[] }> = ({ ingredients }) => {
-    
+const BurgerIngredients: React.FunctionComponent = () => {
+
     const [selectedTab, setSelectedTab] = useState<string>('bun')
     const [groupedIngredients, setGroupedIngredients] = useState<any>(null);
+
+    const { ingredients } = useSelector(
+        (store) => store.ingredients
+    );
 
     useEffect(() => {
         if (ingredients && ingredients.length) {
@@ -42,7 +46,7 @@ const BurgerIngredients: React.FunctionComponent<{ ingredients: Ingredient[] }> 
 
     return <>
         <section>
-            <h1  className={cn('text', 'text_type_main-large')}>Соберите Бургер</h1>
+            <h1 className={cn('text', 'text_type_main-large')}>Соберите Бургер</h1>
             <div className={cn('text', 'text_type_main-default', 'mb-10', styles.menu)}>
                 <Tab value="bun" active={selectedTab === 'bun'} onClick={setSelectedTab}>
                     Булки

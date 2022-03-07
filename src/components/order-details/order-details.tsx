@@ -1,15 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useEffect } from 'react'
 import cn from 'classnames';
 import styles from './order-details.module.css';
 import checkMark from '../../images/check-mark.png';
-import { BurgerConstructorContext } from '../../contexts/burger-constructor-context';
-import { IBurgerConstructorContext } from '../../model/burger-constructor-context'
-
-
+import { useSelector } from '../../hooks/useSelector';
 
 const OrderDetails: React.FunctionComponent = () => {
 
-    const { orderNumber } = useContext(BurgerConstructorContext) as IBurgerConstructorContext;
+    const { currentOrder } = useSelector((store) => store.ingredients)
+
+    useEffect(() => {
+        console.log(currentOrder)
+    }, [currentOrder]);
+
+    const orderNumber = currentOrder?.order.number
 
     return (
         <div className={cn(styles.order, 'p-15')}>
