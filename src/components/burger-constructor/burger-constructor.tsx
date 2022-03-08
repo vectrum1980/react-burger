@@ -8,10 +8,13 @@ import { Ingredient } from '../../model/ingredient'
 import { useLocation, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import { getOrder } from '../../services/actions/ingredients';
+import { getOrder } from '../../services/actions/orders';
 import { useSelector } from '../../hooks/useSelector';
 import { DELETE_INGREDIENT, DECREASE_INGREDIENT, UPDATE_CONSTRUCTOR } from '../../services/constants/ingredietns';
+import { CLEAR_ORDER_NUMBER } from '../../services/constants/orders';
 import { IngredientWithUnicId } from '../../model/ingredient';
+
+
 
 const BurgerConstructor: React.FunctionComponent<{
   onDropHandler: (item: Ingredient) => void;
@@ -44,6 +47,9 @@ const BurgerConstructor: React.FunctionComponent<{
   }, [bun, ingredients]);
 
   function handleClick() {
+    dispatch({
+      type: CLEAR_ORDER_NUMBER      
+    });
     const id = ingredients
       .map((item: Ingredient) => {
         return item._id;

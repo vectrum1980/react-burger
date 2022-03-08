@@ -20,8 +20,7 @@ export const ROUTES = {
 export const App = () => {
 
   const location = useLocation<Location>();
-  const background = location.state && location.state.background;
-  //const { ingredients } = useContext(BurgerConstructorContext) as IBurgerConstructorContext;
+  const background = location.state && location.state.background;  
 
   const dispatch = useDispatch();
 

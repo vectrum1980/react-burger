@@ -1,11 +1,9 @@
-import { Order } from '../../model/order'
 import { Ingredient } from '../../model/ingredient'
 import { IngredientWithUnicId } from '../../model/ingredient'
 import {
   GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED,
   ADD_INGREDIENTS, DELETE_INGREDIENT,
-  INCREASE_INGREDIENT, DECREASE_INGREDIENT, UPDATE_CONSTRUCTOR,
-  GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_FAILED
+  INCREASE_INGREDIENT, DECREASE_INGREDIENT, UPDATE_CONSTRUCTOR
 } from '../constants/ingredietns';
 
 import { api } from '../../api/api';
@@ -51,19 +49,6 @@ export interface IUpdateOrderAction {
   readonly fromIndex: number,
 }
 
-export interface IGetOrderOrderRequestAction {
-  readonly type: typeof GET_ORDER_REQUEST;
-}
-
-export interface IGetOrderOrderSuccessAction {
-  readonly type: typeof GET_ORDER_SUCCESS;
-  readonly order: Order;
-}
-
-export interface IGetOrderOrderFailedAction {
-  readonly type: typeof GET_ORDER_FAILED;
-}
-
 export type TIngredientsActions =
   | IGetIngredientsRequestAction
   | IGetIngredientsSuccessAction
@@ -72,10 +57,8 @@ export type TIngredientsActions =
   | IDeleteIngredientAction
   | IIncreaseIngredientAction
   | IDecreaseIngredientAction
-  | IUpdateOrderAction
-  | IGetOrderOrderRequestAction
-  | IGetOrderOrderSuccessAction
-  | IGetOrderOrderFailedAction;
+  | IUpdateOrderAction;
+
 
 export function getIngredients() {
   return function (dispatch: any) {
@@ -103,31 +86,6 @@ export function getIngredients() {
   };
 }
 
-export function getOrder(ingredientsId: Array<string>) {
-  return function (dispatch: any) {
-    dispatch({
-      type: GET_ORDER_REQUEST,
-    });
-    api.orders.getOrderNumber(ingredientsId)
-      .then((res) => {
-        if (res && res.success) {
-          dispatch({
-            type: GET_ORDER_SUCCESS,
-            order: res,
-          });
-        } else {
-          dispatch({
-            type: GET_ORDER_FAILED,
-          });
-        }
-      })
-      .catch(() =>
-        dispatch({
-          type: GET_ORDER_FAILED,
-        })
-      );
-  };
-}
 
 
 

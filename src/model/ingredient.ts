@@ -1,5 +1,3 @@
-import { Order } from './order'
-
 export interface Ingredient {
     _id: string;
     name: string;
@@ -57,10 +55,6 @@ export interface IngredientsState {
     hasError: boolean;
     loaded: boolean;
     ingredients: Array<Ingredient>;
-    burgerIngredients: BurgerIngredients;
-    currentOrder: null | Order;
-    orderRequest: boolean;
-    orderFailed: boolean
-    orderLoaded: boolean
+    burgerIngredients: BurgerIngredients;   
 };
 

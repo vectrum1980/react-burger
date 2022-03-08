@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import cn from 'classnames';
 import styles from './order-details.module.css';
 import checkMark from '../../images/check-mark.png';
@@ -6,11 +6,7 @@ import { useSelector } from '../../hooks/useSelector';
 
 const OrderDetails: React.FunctionComponent = () => {
 
-    const { currentOrder } = useSelector((store) => store.ingredients)
-
-    useEffect(() => {
-        console.log(currentOrder)
-    }, [currentOrder]);
+    const { currentOrder } = useSelector((store) => store.orders)    
 
     const orderNumber = currentOrder?.order.number
 
