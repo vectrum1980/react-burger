@@ -12,6 +12,7 @@ const BurgerConstructorProvider: React.FC<React.ReactNode> = ({ children }) => {
 
     useEffect(() => {
         api.ingredients.getIngredients().then(data => {
+           
             setIngredients(data.data);
         }).catch((err) => console.log(`${err}`));
     }, []);

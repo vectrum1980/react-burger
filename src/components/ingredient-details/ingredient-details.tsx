@@ -4,11 +4,15 @@ import styles from './ingredient-details.module.css';
 import { Ingredient } from '../../model/ingredient';
 import { useParams } from "react-router-dom";
 import { find } from "lodash";
+import { useSelector } from '../../hooks/useSelector';
 
-const IngredientDetails: React.FunctionComponent<{ ingredients: Ingredient[] }> = ({ ingredients }) => {  
+const IngredientDetails: React.FunctionComponent = () => {  
 
   const { id } = useParams<{ id: string }>();
   const [selectedBurger, setSelectedBurger] = useState<Ingredient>()
+
+  const { ingredients } = useSelector((store) => store.ingredients)
+ 
 
   useEffect(() => {
     if (ingredients && ingredients.length) {

@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { Provider } from 'react-redux';
 import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from "react-router-dom";
-import BurgerConstructorProvider from './contexts/burger-constructor-context';
+import { store } from './services/store'
 
 ReactDOM.render(
   <Router>
-    <BurgerConstructorProvider>
+    <Provider store={store}>
       <App />
-    </BurgerConstructorProvider>
+    </Provider>
   </Router>, document.getElementById('root')
 );
 

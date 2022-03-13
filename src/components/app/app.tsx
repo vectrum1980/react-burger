@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useEffect } from 'react'
 import { Switch, Route, useLocation } from 'react-router-dom'
 import Modal from '../modal/modal'
 import IngredientDetails from '../ingredient-details/ingredient-details'
@@ -6,8 +6,8 @@ import AppHeader from '../app-header/app-header'
 import BurgerUnion from '../burger-union/burger-union'
 import OrderDetails from '../order-details/order-details'
 import { Location } from '../../model/location'
-import { BurgerConstructorContext } from '../../contexts/burger-constructor-context';
-import { IBurgerConstructorContext } from '../../model/burger-constructor-context'
+import { useDispatch } from 'react-redux';
+import { getIngredients } from '../../services/actions/ingredients';
 
 export const ROUTES = {
   HOME: '/',
@@ -20,8 +20,14 @@ export const ROUTES = {
 export const App = () => {
 
   const location = useLocation<Location>();
-  const background = location.state && location.state.background;
-  const { ingredients } = useContext(BurgerConstructorContext) as IBurgerConstructorContext;
+  const background = location.state && location.state.background;  
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
+
 
 
   return (
@@ -29,10 +35,10 @@ export const App = () => {
       <AppHeader />
       <Switch location={background || location}>
         <Route path={'/'} exact>
-          <BurgerUnion ingredients={ingredients} />
+          <BurgerUnion />
         </Route>
         <Route path='/ingredients/:id'>
-          <Modal title='Детали ингредиента'><IngredientDetails ingredients={ingredients} /></Modal>
+          <Modal title='Детали ингредиента'><IngredientDetails /></Modal>
         </Route>
         <Route path={`${ROUTES.ORDER}`}>
           <Modal><OrderDetails /></Modal>
@@ -42,7 +48,7 @@ export const App = () => {
       {background &&
         <>
           <Route path='/ingredients/:id'>
-            <Modal title='Детали ингредиента'><IngredientDetails ingredients={ingredients} /></Modal>
+            <Modal title='Детали ингредиента'><IngredientDetails  /></Modal>
           </Route>
           <Route path={`${ROUTES.ORDER}`}>
             <Modal><OrderDetails /></Modal>

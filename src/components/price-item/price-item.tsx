@@ -1,15 +1,9 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './price-item.module.css';
 import cn from 'classnames';
 
-export type TProps = {
-	price: number;
-	classes?: string;
-}
-
-
-const PriceItem: FC<TProps> = ({ price, classes }) => {
+const PriceItem: React.FunctionComponent<{price: number; classes?: string;}> = ({ price, classes }) => {
   return (
     <span className={cn(styles['element-price'], 'text', [classes])}>
       {price}
