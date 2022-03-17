@@ -2,17 +2,10 @@ import React from 'react';
 import cn from 'classnames';
 import styles from './profile-navigation.module.css';
 import { NavLink, useLocation } from 'react-router-dom';
-import { logout } from '../../services/actions/auth';
-import { useDispatch } from '../../hooks/useDispatch';
 
 const ProfileNavigation: React.FunctionComponent = () => {
 
     const { pathname } = useLocation();
-    const dispatch = useDispatch();
-
-    const clickHandler = () => {
-        dispatch(logout());
-    };
 
     return (
         <div className={cn(styles.nav)}>
@@ -54,7 +47,7 @@ const ProfileNavigation: React.FunctionComponent = () => {
                 <li>
                     <NavLink
                         exact
-                        to='/login'
+                        to='/logout'
                         className={cn(
                             styles.link,
                             'pt-4',
@@ -65,7 +58,7 @@ const ProfileNavigation: React.FunctionComponent = () => {
                         )}
                         activeClassName={styles.link_active}
                     >
-                        <span className={cn('ml-2')} onClick={clickHandler}>
+                        <span className={cn('ml-2')}>
                             Выход
                         </span>
                     </NavLink>

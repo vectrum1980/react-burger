@@ -7,14 +7,21 @@ import UserForm from '../../components/user-form/user-form';
 import UserOrders from '../../components/user-orders/user-orders';
 import { getUser } from '../../services/actions/auth';
 import { useDispatch } from '../../hooks/useDispatch';
+import { useSelector } from '../../hooks/useSelector';
+import Preloader from '../../components/preloader/preloader';
 
 const Profile: React.FunctionComponent = () => {
   const dispatch = useDispatch();  
+  const { getUserRequest } = useSelector((store) => store.auth)
 
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
  
+  if (getUserRequest) {
+    return (<Preloader />)
+  }
+
 
   return (
     <div className={cn(styles.main, 'pt-10', 'pl-10', 'pr-10', 'mt-10')}>

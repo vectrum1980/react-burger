@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { refreshToken } from '../../services/actions/auth';
 import { useSelector } from '../../hooks/useSelector';
 import { useDispatch } from '../../hooks/useDispatch';
-
+import Preloader from '../preloader/preloader';
 
 const ProtectedRoute: React.FunctionComponent<{
     path: string;
@@ -21,6 +21,10 @@ const ProtectedRoute: React.FunctionComponent<{
             dispatch(refreshToken())
         }
     }, [dispatch, hasToken, isTokenUpdated]);
+
+    if (hasToken && !isTokenUpdated) {
+        return <Preloader />;
+      }
 
     return (
         <Route

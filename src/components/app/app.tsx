@@ -14,6 +14,8 @@ import Profile from '../../pages/profile/profile'
 import ProtectedRoute from '../route/protected-route'
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password'
+import Logout from '../../pages/logout/logout'
+
 
 export const ROUTES = {
   HOME: '/',
@@ -35,7 +37,6 @@ export const App = () => {
   }, [dispatch]);
 
 
-
   return (
     <div>
       <AppHeader />
@@ -50,7 +51,7 @@ export const App = () => {
           <Register />
         </Route>
         <Route path='/ingredients/:id'>
-          <Modal title='Детали ингредиента'><IngredientDetails /></Modal>
+          <IngredientDetails />
         </Route>
         <ProtectedRoute path={`${ROUTES.ORDER}`}>
           <Modal><OrderDetails /></Modal>
@@ -59,11 +60,14 @@ export const App = () => {
           <Profile />
         </ProtectedRoute>
         <Route path='/forgot-password' exact={true}>
-					<ForgotPassword />
-				</Route>
-				<Route path='/reset-password' exact={true}>
-					<ResetPassword />
-				</Route>
+          <ForgotPassword />
+        </Route>
+        <Route path='/reset-password' exact={true}>
+          <ResetPassword />
+        </Route>
+        <Route path="/logout">
+          <Logout />
+        </Route>
         <Route>
           <h1>404 NOT FOUND</h1>
         </Route>

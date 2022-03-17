@@ -1,5 +1,5 @@
 import React, { useState, SyntheticEvent } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { login } from '../../services/actions/auth';
@@ -9,10 +9,14 @@ import { Link } from 'react-router-dom';
 import { useSelector } from '../../hooks/useSelector';
 
 const Login: React.FunctionComponent = () => {
-  const [state, setState] = useState({
+  const [data, setData] = useState({
     email: '',
     password: '',
   });
+
+  const { state: { from = '/' } = {} } = useLocation() as {
+    state: { from?: string };
+  };
 
   const userName = useSelector((store) => store.auth.name)
 
@@ -22,26 +26,22 @@ const Login: React.FunctionComponent = () => {
     const target = event.target as HTMLInputElement;
     const value = target.value;
     const name = target.name;
-    setState({
-      ...state,
+    setData({
+      ...data,
       [name]: value,
     });
   };
 
   const submit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(login(state));
+    dispatch(login(data));
   };
 
   const hasToken = localStorage.getItem('refreshToken')
 
   if (userName || hasToken) {
     return (
-      <Redirect
-        to={{
-          pathname: '/'
-        }}
-      />
+      <Redirect to={from} />
     );
   }
 
@@ -53,14 +53,14 @@ const Login: React.FunctionComponent = () => {
           type={'text'}
           placeholder={'E-mail'}
           onChange={handleInputChange}
-          value={state.email}
+          value={data.email}
           name={'email'}
           error={false}
           errorText={'Ошибка'}
           size={'default'}
         />
         <PasswordInput
-          value={state.password}
+          value={data.password}
           name={'password'}
           onChange={handleInputChange}
         />
