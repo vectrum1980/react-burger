@@ -8,6 +8,14 @@ import OrderDetails from '../order-details/order-details'
 import { Location } from '../../model/location'
 import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
+import Login from '../../pages/login/login';
+import Register from '../../pages/register/register';
+import Profile from '../../pages/profile/profile'
+import ProtectedRoute from '../route/protected-route'
+import ForgotPassword from '../../pages/forgot-password/forgot-password';
+import ResetPassword from '../../pages/reset-password/reset-password'
+import Logout from '../../pages/logout/logout'
+
 
 export const ROUTES = {
   HOME: '/',
@@ -20,7 +28,7 @@ export const ROUTES = {
 export const App = () => {
 
   const location = useLocation<Location>();
-  const background = location.state && location.state.background;  
+  const background = location.state && location.state.background;
 
   const dispatch = useDispatch();
 
@@ -29,30 +37,50 @@ export const App = () => {
   }, [dispatch]);
 
 
-
   return (
     <div>
       <AppHeader />
       <Switch location={background || location}>
-        <Route path={'/'} exact>
+        <Route path='/' exact>
           <BurgerUnion />
         </Route>
-        <Route path='/ingredients/:id'>
-          <Modal title='Детали ингредиента'><IngredientDetails /></Modal>
+        <Route path='/login' exact={true}>
+          <Login />
         </Route>
-        <Route path={`${ROUTES.ORDER}`}>
+        <Route path='/register' exact={true}>
+          <Register />
+        </Route>
+        <Route path='/ingredients/:id'>
+          <IngredientDetails />
+        </Route>
+        <ProtectedRoute path={`${ROUTES.ORDER}`}>
           <Modal><OrderDetails /></Modal>
+        </ProtectedRoute>
+        <ProtectedRoute path='/profile'>
+          <Profile />
+        </ProtectedRoute>
+        <Route path='/forgot-password' exact={true}>
+          <ForgotPassword />
+        </Route>
+        <Route path='/reset-password' exact={true}>
+          <ResetPassword />
+        </Route>
+        <Route path="/logout">
+          <Logout />
+        </Route>
+        <Route>
+          <h1>404 NOT FOUND</h1>
         </Route>
       </Switch>
 
       {background &&
         <>
           <Route path='/ingredients/:id'>
-            <Modal title='Детали ингредиента'><IngredientDetails  /></Modal>
+            <Modal title='Детали ингредиента'><IngredientDetails /></Modal>
           </Route>
-          <Route path={`${ROUTES.ORDER}`}>
+          <ProtectedRoute path={`${ROUTES.ORDER}`}>
             <Modal><OrderDetails /></Modal>
-          </Route>
+          </ProtectedRoute>
         </>
       }
     </div>

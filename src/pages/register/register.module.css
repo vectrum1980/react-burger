@@ -1,0 +1,26 @@
+.container {
+  padding-top: 10px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;  
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: #9696f1;
+}
