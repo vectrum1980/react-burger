@@ -7,6 +7,5 @@ const Preloader = () => {
 		<div className={styles["mk-spinner-bubbles"]}></div>
 	</div>)
 }
-
 export default Preloader;
 
