@@ -6,9 +6,8 @@ import { useSelector } from '../../hooks/useSelector';
 
 const OrderDetails: React.FunctionComponent = () => {
 
-    const { currentOrder } = useSelector((store) => store.orders)    
-
-    const orderNumber = currentOrder?.order.number
+    const { createOrder } = useSelector((store) => store.orders)    
+    const orderNumber =createOrder?.order.number
 
     return (
         <div className={cn(styles.order, 'p-15')}>

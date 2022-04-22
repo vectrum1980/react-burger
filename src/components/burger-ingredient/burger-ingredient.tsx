@@ -7,8 +7,6 @@ import { Ingredient } from '../../model/ingredient'
 import { useDrag } from 'react-dnd';
 import { useSelector } from '../../hooks/useSelector';
 
-
-
 const BurgerIngredient: React.FunctionComponent<Ingredient> = (item) => {
 
     const COUNT_BUN = 2

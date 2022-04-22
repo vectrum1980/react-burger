@@ -11,6 +11,7 @@ import {
     LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILED
 } from '../constants/auth';
 import { setCookie, deleteCookie } from '../../utils/auth';
+import { AppDispatch, AppThunk } from '../../types';
 
 export interface IRegisterRequestAction {
     readonly type: typeof REGISTER_REQUEST;
@@ -158,8 +159,8 @@ export function register(user: User) {
     };
 };
 
-export function login(user: User) {
-    return function (dispatch: any) {
+export const login: AppThunk = (user: User) => {
+    return function (dispatch: AppDispatch) {
         dispatch({ type: LOGIN_REQUEST });
         api.auth.signIn(user)
             .then((res) => {
@@ -212,8 +213,8 @@ export function logout() {
     };
 };
 
-export function updateUser(user: User) {
-    return function (dispatch: any) {
+export const updateUser: AppThunk = (user) => {
+    return function (dispatch: AppDispatch) {
         dispatch({ type: UPDATE_USER_REQUEST });
         api.auth.updateUser(user)
             .then((res) => {
@@ -232,7 +233,7 @@ export function updateUser(user: User) {
     };
 };
 
-export function refreshToken() {
+export const refreshToken: AppThunk = () => {
     return function (dispatch: any) {
         dispatch({ type: REFRESH_TOKEN_REQUEST });
         api.auth.refreshToken()

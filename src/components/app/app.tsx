@@ -15,11 +15,13 @@ import ProtectedRoute from '../route/protected-route'
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password'
 import Logout from '../../pages/logout/logout'
+import Feed from '../../pages/feed/feed'
+import Order from '../../pages/order/order'
 
 
 export const ROUTES = {
   HOME: '/',
-  ORDERS: '/orders',
+  ORDERS: '/feed',
   PROFILE: '/profile',
   INGREDIENTS: '/ingredients',
   ORDER: '/order',
@@ -50,6 +52,12 @@ export const App = () => {
         <Route path='/register' exact={true}>
           <Register />
         </Route>
+        <Route path='/feed' exact={true}>
+					<Feed />
+				</Route>
+        <Route path='/feed/:id'>
+					<Order />
+				</Route>
         <Route path='/ingredients/:id'>
           <IngredientDetails />
         </Route>
@@ -81,6 +89,7 @@ export const App = () => {
           <ProtectedRoute path={`${ROUTES.ORDER}`}>
             <Modal><OrderDetails /></Modal>
           </ProtectedRoute>
+          <Route path='/feed/:id' children={<Modal><Order /></Modal>} />
         </>
       }
     </div>
