@@ -6,7 +6,7 @@ import styles from './burger-constructor.module.css';
 import BurgerItem from '../burger-item/burger-item';
 import { Ingredient } from '../../model/ingredient'
 import { useLocation, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/useDispatch';
 import { useDrop } from 'react-dnd';
 import { createOrder } from '../../services/actions/orders';
 import { useSelector } from '../../hooks/useSelector';

@@ -6,7 +6,7 @@ import AppHeader from '../app-header/app-header'
 import BurgerUnion from '../burger-union/burger-union'
 import OrderDetails from '../order-details/order-details'
 import { Location } from '../../model/location'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/useDispatch';
 import { getIngredients } from '../../services/actions/ingredients';
 import Login from '../../pages/login/login';
 import Register from '../../pages/register/register';
@@ -53,11 +53,14 @@ export const App = () => {
           <Register />
         </Route>
         <Route path='/feed' exact={true}>
-					<Feed />
-				</Route>
+          <Feed />
+        </Route>
         <Route path='/feed/:id'>
-					<Order />
-				</Route>
+          <Order />
+        </Route>
+        <ProtectedRoute path='/profile/orders/:id' exact={true}>
+          <Order />
+        </ProtectedRoute>
         <Route path='/ingredients/:id'>
           <IngredientDetails />
         </Route>
@@ -83,12 +86,9 @@ export const App = () => {
 
       {background &&
         <>
-          <Route path='/ingredients/:id'>
-            <Modal title='Детали ингредиента'><IngredientDetails /></Modal>
-          </Route>
-          <ProtectedRoute path={`${ROUTES.ORDER}`}>
-            <Modal><OrderDetails /></Modal>
-          </ProtectedRoute>
+          <Route path='/' exact={true} children={<Modal><OrderDetails /></Modal>} />
+          <Route path='/ingredients/:id' children={<Modal><IngredientDetails /></Modal>} />
+          <ProtectedRoute path='/profile/orders/:id' children={<Modal><Order /></Modal>} />
           <Route path='/feed/:id' children={<Modal><Order /></Modal>} />
         </>
       }

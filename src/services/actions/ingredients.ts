@@ -6,6 +6,7 @@ import {
   INCREASE_INGREDIENT, DECREASE_INGREDIENT, UPDATE_CONSTRUCTOR
 } from '../constants/ingredietns';
 import { api } from '../../api/api';
+import { AppDispatch, AppThunk } from '../../types';
 
 
 export interface IGetIngredientsRequestAction {
@@ -59,9 +60,9 @@ export type TIngredientsActions =
   | IIncreaseIngredientAction
   | IDecreaseIngredientAction
   | IUpdateOrderAction;
- 
-export function getIngredients() {
-  return function (dispatch: any) {
+
+export const getIngredients: AppThunk = () => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST,
     });

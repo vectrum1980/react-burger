@@ -139,9 +139,8 @@ export type TAuthActions =
     | IRefreshTokenSuccessAction
     | IRefreshTokenFailedAction;
 
-
-export function register(user: User) {
-    return function (dispatch: any) {
+export const register: AppThunk = (user: User) => {
+    return function (dispatch: AppDispatch) {
         dispatch({ type: REGISTER_REQUEST });
         api.auth.register(user)
             .then((res) => {
@@ -150,7 +149,7 @@ export function register(user: User) {
                     setCookie('token', authToken);
                     const refreshToken = res.refreshToken;
                     localStorage.setItem('refreshToken', refreshToken);
-                    dispatch({ type: REGISTER_SUCCESS, user: res.user });                   
+                    dispatch({ type: REGISTER_SUCCESS, user: res.user });
                 } else {
                     dispatch({ type: REGISTER_FAILED });
                 }
@@ -178,9 +177,8 @@ export const login: AppThunk = (user: User) => {
     };
 };
 
-
-export function getUser() {
-    return function (dispatch: any) {
+export const getUser: AppThunk = () => {
+    return function (dispatch: AppDispatch) {
         dispatch({ type: GET_USER_REQUEST });
         api.auth.getUser()
             .then((res) => {
@@ -194,15 +192,15 @@ export function getUser() {
     };
 };
 
-export function logout() {
-    return function (dispatch: any) {
+export const logout: AppThunk = () => {
+    return function (dispatch: AppDispatch) {
         dispatch({ type: LOGOUT_REQUEST });
         api.auth.logout()
             .then((res) => {
                 if (res && res.success) {
                     deleteCookie('token');
                     localStorage.removeItem('refreshToken');
-                    dispatch({ type: LOGOUT_SUCCESS });                   
+                    dispatch({ type: LOGOUT_SUCCESS });
                 } else {
                     dispatch({ type: LOGOUT_FAILED });
                 }
@@ -234,7 +232,7 @@ export const updateUser: AppThunk = (user) => {
 };
 
 export const refreshToken: AppThunk = () => {
-    return function (dispatch: any) {
+    return function (dispatch: AppDispatch) {
         dispatch({ type: REFRESH_TOKEN_REQUEST });
         api.auth.refreshToken()
             .then((res) => {
@@ -254,8 +252,8 @@ export const refreshToken: AppThunk = () => {
     };
 };
 
-export function forgotPassword(email: string) {
-    return function (dispatch: any) {
+export const forgotPassword: AppThunk = (email: string) => {
+    return function (dispatch: AppDispatch) {
         dispatch({ type: FORGOT_PASSWORD_REQUEST });
         api.auth.forgotPassword(email)
             .then(() => {
@@ -267,13 +265,13 @@ export function forgotPassword(email: string) {
     };
 };
 
-export function resetPassword(password: string, token: string) {
-    return function (dispatch: any) {
+export const resetPassword: AppThunk = (password: string, token: string) => {
+    return function (dispatch: AppDispatch) {
         dispatch({ type: RESET_PASSWORD_REQUEST });
         api.auth.resetPassword(password, token)
             .then((res) => {
                 if (res && res.success) {
-                    dispatch({ type: RESET_PASSWORD_SUCCESS });                    
+                    dispatch({ type: RESET_PASSWORD_SUCCESS });
                 } else {
                     dispatch({ type: RESET_PASSWORD_FAILED });
                 }

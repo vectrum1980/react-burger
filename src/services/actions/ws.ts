@@ -21,7 +21,6 @@ export const wsActions = {
 	onMessage: WS_GET_MESSAGE
 };
 
-/***/
 export interface IWsConnectionStartAction {
 	readonly type: typeof WS_CONNECTION_START;
 }
