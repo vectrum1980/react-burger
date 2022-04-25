@@ -90,6 +90,9 @@ export const App = () => {
           <Route path='/ingredients/:id' children={<Modal><IngredientDetails /></Modal>} />
           <ProtectedRoute path='/profile/orders/:id' children={<Modal><Order /></Modal>} />
           <Route path='/feed/:id' children={<Modal><Order /></Modal>} />
+          <ProtectedRoute path={`${ROUTES.ORDER}`}>
+            <Modal><OrderDetails /></Modal>
+          </ProtectedRoute>
         </>
       }
     </div>
