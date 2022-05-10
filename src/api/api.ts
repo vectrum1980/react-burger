@@ -2,7 +2,7 @@ import { BASE_URL } from '../constants/config'
 import { User } from '../model/user'
 import { getCookie } from '../utils/auth';
 
-const requestHandler = (resp: Response) => {
+const requestHandler = (resp: Response) => {   
     if (resp.ok)
         return resp.json()
     if (resp.json)
@@ -21,14 +21,40 @@ export const api = {
         }
     },
     orders: {
-        getOrderNumber: async (ingredients: Array<string>) => {
+        addOrdersRequest: async (ingredients: Array<string>) => {           
+            const resp = await fetch(`${BASE_URL}/orders`, {
+                method: "POST",
+                body: JSON.stringify({ ingredients: ingredients }),
+                headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + getCookie('token') }
+            })           
+            return requestHandler(resp)
+        },
+        getOrderNumber: async (ingredients: Array<string>) => {           
             const resp = await fetch(`${BASE_URL}/orders`, {
                 method: "POST",
                 body: JSON.stringify({ ingredients: ingredients }),
                 headers: { 'Content-Type': 'application/json' }
             })
             return requestHandler(resp)
-        }
+        },
+        getOrderRequest: async (number: string) => {
+            const resp = await fetch(`${BASE_URL}/orders/${number}`, {
+                method: "GET",               
+                headers: { 'Content-Type': 'application/json' }
+            })
+            return requestHandler(resp)
+        },
+        getUserOrderRequest: async (number: string) => {
+            const resp = await fetch(`${BASE_URL}/orders/${number}`, {
+                method: "GET",               
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + getCookie('token')
+                }
+            })
+            return requestHandler(resp)
+        },
     },
     auth: {
         register: async (user: User) => {

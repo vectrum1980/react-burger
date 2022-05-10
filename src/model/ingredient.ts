@@ -37,7 +37,7 @@ export interface IngredientWithUnicId {
     image_mobile: string;
     image_large: string;
     __v?: number | undefined | null;
-    unicId: string;
+    unicId: any;
 }
 
 export interface IngredientsCount {

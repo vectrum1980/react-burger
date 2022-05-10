@@ -6,9 +6,9 @@ import styles from './burger-constructor.module.css';
 import BurgerItem from '../burger-item/burger-item';
 import { Ingredient } from '../../model/ingredient'
 import { useLocation, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/useDispatch';
 import { useDrop } from 'react-dnd';
-import { getOrder } from '../../services/actions/orders';
+import { createOrder } from '../../services/actions/orders';
 import { useSelector } from '../../hooks/useSelector';
 import { DELETE_INGREDIENT, DECREASE_INGREDIENT, UPDATE_CONSTRUCTOR } from '../../services/constants/ingredietns';
 import { CLEAR_ORDER_NUMBER } from '../../services/constants/orders';
@@ -54,14 +54,14 @@ const BurgerConstructor: React.FunctionComponent<{
       .map((item: Ingredient) => {
         return item._id;
       })
-      .concat(bun._id);
+      .concat(bun ? bun._id : "");
     history.push({
       pathname: '/order',
       state: {
         background: location
       }
     });
-    dispatch(getOrder(id));
+    dispatch(createOrder(id));
   }
 
   const moveItem = useCallback(

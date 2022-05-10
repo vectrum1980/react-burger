@@ -30,6 +30,7 @@ const UserForm: React.FunctionComponent = () => {
                 email: currentUserEmail,
             };
         });
+
     }, [currentUserName, currentUserEmail]);
 
     const handleInputChange = (event: SyntheticEvent<HTMLInputElement>): void => {
@@ -114,7 +115,7 @@ const UserForm: React.FunctionComponent = () => {
             emailDisabled: true,
             passwordDisabled: true,
         });
-    };  
+    };
 
     return (
         <form onSubmit={submit} className={cn(styles.form)}>
