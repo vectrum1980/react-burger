@@ -33,6 +33,7 @@ const BurgerIngredient: React.FunctionComponent<Ingredient> = (item) => {
     return (
         <div className={cn(styles.card)}
             ref={dragRef}
+            data-cy='ingredient'
             style={{ opacity }}>
             <img
                 className={cn(styles.image, 'mb-1')}

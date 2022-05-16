@@ -15,7 +15,6 @@ import { CLEAR_ORDER_NUMBER } from '../../services/constants/orders';
 import { IngredientWithUnicId } from '../../model/ingredient';
 
 
-
 const BurgerConstructor: React.FunctionComponent<{
   onDropHandler: (item: Ingredient) => void;
 }> = ({ onDropHandler }) => {
@@ -77,10 +76,10 @@ const BurgerConstructor: React.FunctionComponent<{
 
   return (
     <section className={cn(styles.container, 'pl-4')}>
-      <div ref={dropTarget}
+      <div ref={dropTarget} data-cy='drop-target'
         className={cn(styles['burger-container'])}>
         {bun && (
-          <div className={'mr-8'}>
+          <div className={'mr-8'} data-cy="up">
             <ConstructorElement
               type='top'
               isLocked={true}
@@ -90,7 +89,7 @@ const BurgerConstructor: React.FunctionComponent<{
             />
           </div>
         )}
-        <ul className={cn(styles.list, 'pr-4')}>
+        <ul className={cn(styles.list, 'pr-4')} data-cy="ingredients-container">
           {ingredients.map((el: IngredientWithUnicId, index: any) => {
             const deleteIngredient = () => {
               dispatch({
@@ -114,7 +113,7 @@ const BurgerConstructor: React.FunctionComponent<{
           })}
         </ul>
         {bun && (
-          <div className={'mr-8'}>
+          <div className={'mr-8'} data-cy="down">
             <ConstructorElement
               type='bottom'
               isLocked={true}
